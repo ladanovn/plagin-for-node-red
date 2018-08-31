@@ -4,7 +4,11 @@
       color: '#a6bbcf',
       defaults: {
           name: {
-            value: "device" 
+            value: 'device' 
+          },
+          device_type: {
+            value: 'light',
+            required: true
           },
           broker: { 
             type: 'mqtt-broker', 
@@ -17,21 +21,6 @@
           pin: { 
             value: '1',
             required: true
-          },
-          db_id: { 
-            value: ''
-          },
-          db_type: {
-            value: '',
-          },
-          db_where: {
-            value: ''
-          },
-          db_img: {
-            value: ''
-          },
-          db_payload: {
-            value: {}
           }
       },
       inputs:1,
@@ -48,6 +37,13 @@
     <label for="node-input-name"><i class="icon-tag"></i> Name </label>    
     <input type="text" id="node-input-name" placeholder="name">       
   </div>  
+
+  <div class="form-row">
+    <label for="node-input-device_type">Type*</label>    
+    <select type="text" id="node-input-device_type" style="width:70%;">            
+      <option value="light">light</option>
+    </select> 
+  </div>
 
   <div class="form-row">
     <label for="node-input-broker"><i class="fa fa-globe"></i> Mqtt*</label>
@@ -80,34 +76,9 @@
       <option value="16">16</option>
     </select>    
   </div>    
-  
-  <div class="form-row">
-    <h5>Binding to a database</h5>
-  </div>
-
-  <div class="form-row">
-    <label for="node-input-db_id">Id</label>
-    <input type="text" id="node-input-db_id" placeholder="db_id">       
-  </div>  
-
-  <div class="form-row">
-    <label for="node-input-db_type"> Type </label>    
-    <select type="text" id="node-input-db_type" style="width:70%;">            
-      <option value="light">light</option>
-    </select>
-  </div>   
-
-  <div class="form-row">
-      <label for="node-input-db_where">Where</label>
-      <input type="text" id="node-input-db_where" placeholder="db_where">       
-  </div>
-
-  <div class="form-row">
-      <label for="node-input-db_img">Url image</label>
-      <input type="text" id="node-input-db_img" placeholder="db_img">       
-  </div>  
 </script>
 
 <script type="text/x-red" data-help-name="device">
-  <p>...</p>
+  <h4>Устройство</h4>
+  <p>Topic: /<code>devicename</code>/gpio/<code>pin</code></p>
 </script>
