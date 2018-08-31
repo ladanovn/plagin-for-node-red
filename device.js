@@ -1,6 +1,4 @@
 const request = require('axios');
-var filePlugin = require("./localfilesystem");
-var filePluginInstance = filePlugin(config);
 
 module.exports = async function (RED) {
   function DeviceNode(config) {
@@ -22,6 +20,7 @@ module.exports = async function (RED) {
       if (!nodeContext.get('device')) {
         // not in the database
         request.post(`http://${express.host}:${express.port}/api/v1/devices/`,{
+          name: config.name,
           type: config.device_type
         }).then(data => {
           // save copy in database
@@ -42,8 +41,6 @@ module.exports = async function (RED) {
 
       node.on('input', function (msg) {
         msg.payload = JSON.parse(msg.payload);
-        console.log(msg.payload.deviceId)
-        console.log(nodeContext.get('device')._id)
         if (msg.payload.deviceId == nodeContext.get('device')._id) {
           msg.payload = msg.payload.turn == 'on' ? '1' : '0';
           node.status({
